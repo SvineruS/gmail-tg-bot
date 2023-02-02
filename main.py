@@ -17,6 +17,8 @@ async def check_mail(username, password):
             await bot.send_message(config.TG_RECEIVER, format_mail.mail_to_text(m))
             logging.info(f"Sent message from {username} mailbox")
             await asyncio.sleep(1.5)
+        else:
+            logging.info(f"No new messages in {username} mailbox")
     except Exception as ex:
         try:
             logging.exception("check_mails")
@@ -37,6 +39,6 @@ async def check_daemon(timeout):
 
 
 if __name__ == '__main__':
-    asyncio.run(check_daemon(60))
+    asyncio.run(check_daemon(config.UPDATE_INTERVAL))
 
 
